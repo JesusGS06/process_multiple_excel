@@ -1,0 +1,10 @@
+python-dotenv
+
+pandas
+openpyxl
+xlrd
+
+mysql-connector-python
+
+streamlit
+watchdog

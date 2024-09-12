@@ -16,8 +16,8 @@ def process_files(first_file, second_file):
     st.write("DATA FROM SECOND EXCEL")
     st.dataframe(df2)
 
-    df_combinado = pd.concat([df1, df2], axis=1)
-    df_combinado = df_combinado.rename(columns={
+    df = pd.concat([df1, df2], axis=1)
+    df = df.rename(columns={
     'Tipo': 'type',
     'Tarifa': 'price',
     'Estado': 'status',
@@ -27,11 +27,11 @@ def process_files(first_file, second_file):
     'Fecha_contratacion': 'date_of_entry',
     })
 
-    df_combinado['date_of_entry'] = df_combinado['date_of_entry'].dt.strftime('%Y/%m/%d')
-    df_combinado['salary'] = df_combinado['salary'].astype(float)
-    df_combinado['price'] = df_combinado['price'].astype(float)
+    df['date_of_entry'] = df['date_of_entry'].dt.strftime('%Y/%m/%d')
+    df['salary'] = df['salary'].astype(float)
+    df['price'] = df['price'].astype(float)
 
-    insert_rooms_and_employees_in_bulk(df_combinado)
+    insert_rooms_and_employees_in_bulk(df)
           
 st.title('PROCESSING TWO EXCEL FILES')
 

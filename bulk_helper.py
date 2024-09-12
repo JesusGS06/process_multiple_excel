@@ -2,7 +2,7 @@ import os
 import mysql.connector
 from mysql.connector import Error
 
-def insert_rooms_and_employees_in_bulk(df_combinado):
+def insert_rooms_and_employees_in_bulk(df):
     connection = None
     cursor = None
 
@@ -20,7 +20,7 @@ def insert_rooms_and_employees_in_bulk(df_combinado):
             insert_query_rooms = f"""
             INSERT INTO rooms (type, price, status) VALUES (%s, %s, %s)
             """
-            rooms_data = df_combinado[['type', 'price', 'status']].dropna().to_records(index=False).tolist()
+            rooms_data = df[['type', 'price', 'status']].dropna().to_records(index=False).tolist()
             cursor.executemany(insert_query_rooms, rooms_data)
             connection.commit()
             print(f"{cursor.rowcount} rows inserted successfully.")
@@ -28,7 +28,7 @@ def insert_rooms_and_employees_in_bulk(df_combinado):
             insert_query_employees = f"""
             INSERT INTO employees (name, occupation, salary, date_of_entry) VALUES (%s, %s, %s, %s)
             """
-            employees_data = df_combinado[['name', 'occupation', 'salary', 'date_of_entry']].dropna().to_records(index=False).tolist()
+            employees_data = df[['name', 'occupation', 'salary', 'date_of_entry']].dropna().to_records(index=False).tolist()
             cursor.executemany(insert_query_employees, employees_data)
             connection.commit() 
             print(f"{cursor.rowcount} rows inserted successfully.")   
